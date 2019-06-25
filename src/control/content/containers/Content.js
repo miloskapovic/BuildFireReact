@@ -9,7 +9,7 @@ const Content = () => {
   };
 
   const saveProduct = (input) => {
-    buildfire.publicData.save({ name: input }, 'Products', (err, data) => {
+    buildfire.publicData.insert({ name: input }, 'Products', (err, data) => {
       if (err) {
         alert('there was a problem saving your data');
       } else {
@@ -19,16 +19,13 @@ const Content = () => {
   };
 
   const getData = () => {
-    let products;
-    buildfire.publicData.get('Products', (err, data) => {
+    buildfire.publicData.search({}, 'Products', (err, data) => {
       if (err) {
         alert('there was a problem retrieving your data');
       } else {
-        products = data;
         console.log('got your data ', data);
       }
     });
-    console.log('products', products);
   };
 
   const content = (
