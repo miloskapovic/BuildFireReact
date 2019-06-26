@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 
 const Widget = () => {
-  let products;
-  buildfire.publicData.search({}, 'Products', (err, data) => {
-    if (err) {
-      alert('there was a problem retrieving your data');
-    } else {
-      products = data;
-      console.log('products>>>>>>', data);
-    }
-  });
+  const [products, setProducts] = useState(null);
+
+  useEffect(() => {
+    buildfire.publicData.search({}, 'Products', (err, data) => {
+      if (err) {
+        alert('there was a problem retrieving your data');
+      } else {
+        setProducts(data);
+      }
+    });
+  }, []);
 
   const productList = products && products.map(product => (
     <div>
